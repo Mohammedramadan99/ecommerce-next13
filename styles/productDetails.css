@@ -1,0 +1,413 @@
+.productDetails > .container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
+  gap: 1.875rem;
+}
+@media (max-width: 400px) {
+  .productDetails > .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr));
+    gap: 0.625rem;
+  }
+}
+.productDetails .swiper {
+  padding-top: 0.3125rem;
+  padding-bottom: 1.875rem;
+}
+.productDetails .swiper .swiper-pagination {
+  position: absolute !important;
+  bottom: 0 !important;
+  padding-top: 0.625rem;
+}
+.productDetails .swiper .swiper-pagination .swiper-pagination-bullet {
+  border: 3px solid #ef233c;
+  background-color: transparent;
+}
+.productDetails .swiper .swiper-pagination .swiper-pagination-bullet-active {
+  background-color: #ef233c;
+  border-color: transparent;
+  opacity: 0.7;
+}
+.productDetails__left {
+  width: 100%;
+  min-height: 400px;
+  height: 100%;
+}
+.productDetails__left__img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.productDetails__right {
+  padding-top: 1.875rem;
+}
+.productDetails__right__name {
+  padding: 1.25rem 0;
+  font-weight: 500;
+  font-size: 1.5625rem;
+}
+.productDetails__right__rating {
+  display: flex;
+}
+.productDetails__right__rating__stars {
+  margin-right: 1.25rem;
+}
+.productDetails__right__rating__reviewsNum {
+  font-size: 0.9375rem;
+}
+.productDetails__right__price {
+  font-size: 1.25rem;
+  color: #ef233c;
+  font-weight: 600;
+}
+.productDetails__right__desc {
+  padding: 0.625rem 0;
+  font-weight: 500;
+  font-size: 0.75rem;
+  text-transform: lowercase;
+  color: #666;
+  line-height: 2.5;
+  word-spacing: 2px;
+}
+.productDetails__right__quantity {
+  margin: 0.625rem 0;
+  width: 120px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.625rem;
+  flex-direction: row;
+  font-weight: 600;
+}
+.productDetails__right__quantity__icon {
+  padding: 0.3125rem;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  flex-direction: row;
+  border-radius: 50%;
+}
+.productDetails__right__quantity__icon svg {
+  color: #777;
+}
+.productDetails__right__btns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.625rem;
+  flex-direction: row;
+}
+.productDetails__right__btns__btn {
+  margin: 1.25rem 0 !important;
+}
+.productDetails__right__btns__btn:last-child {
+  border-bottom: 2px solid #ef233c;
+  color: #ef233c;
+  text-transform: capitalize;
+  font-weight: 600;
+  transition: all 0.3s ease-in-out;
+  font-size: 0.75rem;
+}
+.productDetails__right__btns__btn:last-child:hover {
+  color: #d00f27;
+  border-color: #d00f27;
+  cursor: pointer;
+}
+.productDetails__bottom__reviewsSection {
+  margin: 3.125rem 0;
+}
+.productDetails__bottom__reviewsSection__bar {
+  display: flex;
+  align-items: center;
+  margin: 1.25rem 0;
+  flex-wrap: wrap;
+}
+.productDetails__bottom__reviewsSection__bar__link {
+  flex: 1;
+  position: relative;
+  margin-left: 0.625rem;
+  margin-right: 0.625rem;
+  padding: 0.625rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  width: -moz-fit-content;
+  width: fit-content;
+  min-width: 9.375rem;
+  color: rgba(239, 35, 60, 0.2);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  flex-direction: row;
+}
+.productDetails__bottom__reviewsSection__bar__link:before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  border-bottom: 2px solid rgba(239, 35, 60, 0.1);
+}
+.productDetails__bottom__reviewsSection__bar__link.active {
+  color: #ef233c;
+  transition: all 0.3s ease-in-out;
+}
+.productDetails__bottom__reviewsSection__bar__link.active::before {
+  width: 100%;
+  height: 5%;
+  animation: smoothBorder 1s linear;
+  border-color: #ef233c;
+}
+.productDetails__bottom__reviewsSection__reviews__header {
+  font-size: 1.875rem;
+}
+@media (max-width: 400px) {
+  .productDetails__bottom__reviewsSection__reviews__header {
+    font-size: 1.5625rem;
+  }
+}
+.productDetails__bottom__reviewsSection__reviews__ratingNum {
+  margin-bottom: 0.625rem;
+  margin-bottom: 1.875rem;
+}
+.productDetails__bottom__reviewsSection__reviews__ratingNum__num {
+  font-weight: 800;
+}
+.productDetails__bottom__reviewsSection__reviews__ratingNum__num > span {
+  font-weight: 400;
+  font-size: 6.25rem;
+}
+@media (max-width: 400px) {
+  .productDetails__bottom__reviewsSection__reviews__ratingNum__num > span {
+    font-size: 3.125rem;
+  }
+}
+.productDetails__bottom__reviewsSection__reviews__ratingNum__stars {
+  display: flex;
+  align-items: center;
+  font-size: 0.75rem;
+}
+.productDetails__bottom__reviewsSection__reviews__items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15.625rem, 1fr));
+  gap: 0.625rem;
+  align-items: start;
+}
+@media (max-width: 400px) {
+  .productDetails__bottom__reviewsSection__reviews__items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9.375rem, 1fr));
+    gap: 0.625rem;
+  }
+}
+.productDetails__bottom__reviewsSection__reviews__items__item {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  padding: 1.25rem;
+  border: 1px solid #eee;
+  box-shadow: 0 0 35px 2px #eee;
+  border-radius: 0.625rem;
+}
+.productDetails__bottom__reviewsSection__reviews__items__item__img {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.productDetails__bottom__reviewsSection__reviews__items__item__content__name {
+  color: #999;
+  font-size: 0.875rem;
+  font-weight: 300;
+  text-transform: capitalize;
+}
+.productDetails__bottom__reviewsSection__reviews__items__item__content__txt {
+  margin: 0.625rem 0;
+}
+.productDetails__bottom__relatedPoriductsSection {
+  margin: 3.125rem 0;
+}
+.productDetails__bottom__relatedPoriductsSection__header {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 1.25rem 0;
+}
+.productDetails__bottom__relatedPoriductsSection__header span {
+  display: block;
+  font-size: 0.8125rem;
+  color: #999;
+  font-weight: 400;
+}
+.productDetails__bottom__relatedPoriductsSection__products {
+  width: 100%;
+}
+.productDetails__bottom__relatedPoriductsSection__products__product {
+  position: relative;
+  max-width: 300px;
+  height: 400px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: auto;
+}
+.productDetails__bottom__relatedPoriductsSection__products__product__imgWrapper {
+  flex: 7;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #f8f8f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  flex-direction: row;
+  transition: all 0.3s ease-in-out;
+}
+.productDetails__bottom__relatedPoriductsSection__products__product__imgWrapper:hover {
+  background-color: transparent;
+}
+.productDetails__bottom__relatedPoriductsSection__products__product__imgWrapper:hover .productsSlider__items__item__imgWrapper__img {
+  transform: scale(1.1);
+}
+.productDetails__bottom__relatedPoriductsSection__products__product__imgWrapper:hover::before {
+  opacity: 0.1;
+}
+.productDetails__bottom__relatedPoriductsSection__products__product__imgWrapper::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  display: block;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+.productDetails__bottom__relatedPoriductsSection__products__product__imgWrapper__img {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  padding: 2.5rem;
+  margin-bottom: 1.875rem;
+  transform: scale(1);
+  transition: all 0.3s ease-in-out;
+}
+.productDetails__bottom__relatedPoriductsSection__products__product__details {
+  flex: 3;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+.productDetails__bottom__relatedPoriductsSection__products__product__details__name {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  transition: all 0.3s ease-in-out;
+  text-align: center;
+  font-weight: 600;
+  display: flex;
+  font-size: 12px;
+}
+.productDetails__bottom__relatedPoriductsSection__products__product__details__name:hover {
+  color: #ef233c;
+}
+.productDetails__bottom__relatedPoriductsSection__products__product__details__price {
+  padding: 0.625rem;
+  color: #ef233c;
+  border-radius: 50%;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  flex-direction: row;
+}
+.productDetails__bottom__relatedPoriductsSection__products__product__details__category {
+  transition: all 0.3s ease-in-out;
+  text-align: center;
+  color: #999;
+}
+.productDetails__bottom__relatedPoriductsSection__products__product__details__category:hover {
+  color: #2b2d42;
+}
+.productDetails__bottom__relatedPoriductsSection__products__product__details__rating {
+  display: flex;
+}
+
+.zoomIn_animation {
+  animation: zoomIn 1s linear;
+}
+
+.zoomOut_animation {
+  animation: zoomOut 1s linear;
+}
+
+@keyframes zoomIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-5rem);
+  }
+  80% {
+    opacity: 0.5;
+    transform: translateX(2.5rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes zoomOut {
+  0% {
+    opacity: 0;
+    transform: translateX(-5rem);
+  }
+  80% {
+    opacity: 0.5;
+    transform: translateX(2.5rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes smoothBorder {
+  0% {
+    width: 100%;
+    height: 5%;
+    opacity: 0.4;
+    border-color: rgba(239, 35, 60, 0.9);
+  }
+  60% {
+    width: 80%;
+    height: 5%;
+    border-color: rgba(239, 35, 60, 0.7);
+  }
+  80% {
+    width: 110%;
+    height: 5%;
+    opacity: 0.8;
+    border-color: rgba(239, 35, 60, 0.9);
+  }
+  100% {
+    width: 100%;
+    height: 5%;
+    opacity: 1;
+    border-color: #ef233c;
+  }
+}
+.css-1lauo1g-MuiRating-root,
+.MuiRating-root {
+  color: #ef233c !important;
+}
+
+.submitDialogTextArea {
+  padding: 0.625rem;
+}/*# sourceMappingURL=productDetails.css.map */
