@@ -2,7 +2,6 @@ import React, { Fragment, lazy, Suspense, useEffect, useState } from "react";
 // import "./newProduct.css";
 import { useSelector, useDispatch } from "react-redux";
 import { reset, createCategoryAction } from "../../store/categorySlice";
-import { toast } from "react-toastify";
 import { Button } from "@mui/material";
 // import MetaData from "../layout/MetaData";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
@@ -15,9 +14,8 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 // import { useNavigate } from 'react-router-dom'
 // const Sidebar = lazy(() => import("./Sidebar"));
 
-const NewCategory = () =>
-{
-  const dispatch = useDispatch()
+const NewCategory = () => {
+  const dispatch = useDispatch();
 
   // const navigate = useNavigate()
 
@@ -36,43 +34,36 @@ const NewCategory = () =>
   //   'mexican food'
   // ];
 
-
-  const createProductSubmitHandler = (e) =>
-  {
+  const createProductSubmitHandler = (e) => {
     e.preventDefault();
 
     const myForm = new FormData();
 
     myForm.set("title", title);
 
-    images.forEach((image) =>
-    {
+    images.forEach((image) => {
       myForm.append("images", image);
     });
 
     const data = {
       title,
-      images
-    }
-    console.log(data)
+      images,
+    };
+    console.log(data);
     dispatch(createCategoryAction(data));
   };
 
-  const createProductImagesChange = (e) =>
-  {
+  const createProductImagesChange = (e) => {
     const files = Array.from(e.target.files);
 
     setImages([]);
     setImagesPreview([]);
 
-    files.forEach((file) =>
-    {
+    files.forEach((file) => {
       const reader = new FileReader();
 
-      reader.onload = () =>
-      {
-        if (reader.readyState === 2)
-        {
+      reader.onload = () => {
+        if (reader.readyState === 2) {
           setImagesPreview((old) => [...old, reader.result]);
           setImages((old) => [...old, reader.result]);
         }
@@ -99,7 +90,6 @@ const NewCategory = () =>
             onSubmit={createProductSubmitHandler}
           >
             <div className="newProduct__Form__Heading">Create Product</div>
-
 
             <div className="item">
               <StorageIcon />
