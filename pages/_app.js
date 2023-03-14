@@ -1,6 +1,7 @@
 import AOS from "aos";
 import { Provider } from "react-redux";
 import { wrapper } from "../store/store";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/style.scss";
 import { useRouter } from "next/router";

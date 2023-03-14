@@ -15,7 +15,7 @@ import useCategory from "@/hooks/useCategory";
 
 function AllCategories() {
   const dispatch = useDispatch();
-  const { data } = useCategory();
+  // const { data } = useCategory();
 
   const { categories } = useSelector((state) => state.category);
   // const [categories, setCategories] = useState([
@@ -91,7 +91,7 @@ function AllCategories() {
           }}
           virtual
         >
-          {data?.map((item) => (
+          {categories?.map((item) => (
             <SwiperSlide key={item?._id}>
               <Link
                 href={`/products?category=${item?.title}`}

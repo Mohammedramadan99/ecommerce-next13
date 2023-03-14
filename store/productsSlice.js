@@ -12,9 +12,7 @@ const hostname =
     ? window.location.hostname
     : "";
 const origin =
-  typeof window !== "undefined" && window.location.origin
-    ? window.location.origin
-    : "";
+  "https://ecommerce-backend-cj0662fi2-mohammedramadan99.vercel.app";
 
 //Create
 export const createProductAction = createAsyncThunk(

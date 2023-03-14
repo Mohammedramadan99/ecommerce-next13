@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { Spinner } from "react-bootstrap";
 import { fetchCategoriesAction } from "../store/categorySlice";
 import { fetchGlobalReviewsAction } from "../store/reviewUsSlice";
+import { wrapper } from "@/store/store";
 // import useProducts from "../hooks/useProducts";
 const Banner = dynamic(() => import("../components/Banner/Banner"), {
   ssr: false,

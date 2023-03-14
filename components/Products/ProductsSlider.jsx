@@ -45,7 +45,7 @@ function ProductsSlider({ products }) {
             },
           }}
         >
-          {data?.products?.map((p) => (
+          {products?.map((p) => (
             <SwiperSlide key={p?._id}>
               <Link
                 href={`/product/${p?._id}`}
