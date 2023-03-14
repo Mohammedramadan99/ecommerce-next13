@@ -13,11 +13,11 @@ import { fetchCategoriesAction } from "../../store/categorySlice";
 import { useDispatch, useSelector } from "react-redux";
 import useCategory from "@/hooks/useCategory";
 
-function AllCategories() {
+function AllCategories({ categories }) {
   const dispatch = useDispatch();
   // const { data } = useCategory();
 
-  const { categories } = useSelector((state) => state.category);
+  // const { categories } = useSelector((state) => state.category);
   // const [categories, setCategories] = useState([
   //   {
   //     id: Math.floor(Math.random() * 1000),

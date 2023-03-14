@@ -11,9 +11,27 @@ import "swiper/css/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { Rating } from "@mui/material";
 import useProducts from "../../hooks/useProducts";
+import { fetchProductsAction } from "@/store/productsSlice";
+import useSwr from "swr";
+import fetcher from "@/libs/fetcher";
 function ProductsSlider({ products }) {
-  const { data } = useProducts();
-
+  const dispatch = useDispatch();
+  const { data, error, isLoading } = useSwr(
+    "https://ecommerce-backend-5zcumxly0-mohammedramadan99.vercel.app/api/product",
+    fetcher,
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    }
+  );
+  // useEffect(() => {
+  //   dispatch(fetchProductsAction(data));
+  // }, [dispatch]);
+  console.log({ data });
+  if (data === undefined) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className="productsSlider">
       <div className="productsSlider__items">
@@ -45,7 +63,7 @@ function ProductsSlider({ products }) {
             },
           }}
         >
-          {products?.map((p) => (
+          {data?.products?.map((p) => (
             <SwiperSlide key={p?._id}>
               <Link
                 href={`/product/${p?._id}`}

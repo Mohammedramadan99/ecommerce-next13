@@ -2,8 +2,8 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSelector } from "react-redux";
-function Categories() {
-  const { categories } = useSelector((state) => state.category);
+function Categories({ categories }) {
+  // const { categories } = useSelector((state) => state.category);
   return (
     <div className="categories">
       <div className="categories__items">

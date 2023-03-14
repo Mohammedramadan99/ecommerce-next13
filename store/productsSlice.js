@@ -12,7 +12,7 @@ const hostname =
     ? window.location.hostname
     : "";
 const origin =
-  "https://ecommerce-backend-cj0662fi2-mohammedramadan99.vercel.app";
+  "https://ecommerce-backend-5zcumxly0-mohammedramadan99.vercel.app";
 
 //Create
 export const createProductAction = createAsyncThunk(
@@ -106,10 +106,10 @@ export const deleteproductAction = createAsyncThunk(
 // all products
 export const fetchProductsAction = createAsyncThunk(
   "product/all",
-  async (_, { rejectWithValue, getState, dispatch }) => {
+  async (data, { rejectWithValue, getState, dispatch }) => {
     try {
       //http call
-      const { data } = await axios.get(`${origin}/api/product`);
+      // const { data } = await axios.get(`${origin}/api/product`);
       //dispatch
       // dispatch(resetproductDelete());
       return data;
@@ -478,7 +478,7 @@ const productSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(fetchProductsAction.fulfilled, (state, action) => {
-      state.productsList.allProducts = action?.payload.products;
+      state.productsList.allProducts = action?.payload?.products;
       state.loading = false;
       state.appErr = null;
       state.serverErr = null;
