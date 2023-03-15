@@ -6,6 +6,8 @@ import { Spinner } from "react-bootstrap";
 import { fetchCategoriesAction } from "../store/categorySlice";
 import { fetchGlobalReviewsAction } from "../store/reviewUsSlice";
 import { wrapper } from "@/store/store";
+import useSwr from "swr";
+import fetcher from "@/libs/fetcher";
 // import useProducts from "../hooks/useProducts";
 const Banner = dynamic(() => import("../components/Banner/Banner"), {
   ssr: false,
@@ -46,11 +48,37 @@ const SpecialOffer = dynamic(
 
 export default function Home() {
   const dispatch = useDispatch();
-  // console.log({ data });
+
+  // fetch categories
+  // categories
   const {
-    productsList: { allProducts },
-  } = useSelector((state) => state.products);
-  const { loading: productsLoading } = useSelector((state) => state.products);
+    data,
+    error: categoryError,
+    isLoading: categoryLoading,
+  } = useSwr(
+    "https://ecommerce-backend-k2u7pzka2-mohammedramadan99.vercel.app/api/category",
+    fetcher,
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    }
+  );
+  // get website reviews
+  const {
+    data: reviewsData,
+    error: reviewsError,
+    isLoading: reviewsLoading,
+  } = useSwr(
+    "https://ecommerce-backend-k2u7pzka2-mohammedramadan99.vercel.app/api/review/us",
+    fetcher,
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    }
+  );
+
   // const { loading: reviewusLoading } = useSelector(
   //   (state) => state.globalReviews
   // );
@@ -60,7 +88,14 @@ export default function Home() {
   // }, [dispatch]);
   return (
     <div>
-      {productsLoading ? (
+      <AllCategories categories={data?.categories} />
+      <Banner />
+      <Categories categories={data?.categories} loading={categoryLoading} />
+      <ProductsSlider />
+      <SpecialOffer />
+      <CustomerSays reviews={reviewsData?.reviews} loading={categoryLoading} />
+      <Features />
+      {/* {reviewsLoading ? (
         <div
           className="spinner"
           style={{
@@ -75,15 +110,15 @@ export default function Home() {
         </div>
       ) : (
         <>
-          <AllCategories />
+          <AllCategories categories={data?.categories} />
           <Banner />
-          <Categories />
-          <ProductsSlider products={allProducts} />
+          <Categories categories={data?.categories} />
+          <ProductsSlider />
           <SpecialOffer />
-          <CustomerSays />
+          <CustomerSays reviews={reviewsData?.reviews} />
           <Features />
         </>
-      )}
+      )} */}
     </div>
   );
 }

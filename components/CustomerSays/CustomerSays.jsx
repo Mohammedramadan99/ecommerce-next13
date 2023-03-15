@@ -13,14 +13,8 @@ import { useEffect } from "react";
 import { fetchGlobalReviewsAction } from "../../store/reviewUsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
-function CustomerSays() {
-  const dispatch = useDispatch();
-  const { reviewsList } = useSelector((state) => state.globalReviews);
 
-  useEffect(() => {
-    dispatch(fetchGlobalReviewsAction());
-  }, []);
-
+function CustomerSays({ reviews }) {
   return (
     <div className="cstSys">
       <div className="container">
@@ -53,7 +47,7 @@ function CustomerSays() {
               },
             }}
           >
-            {reviewsList?.map((item) => (
+            {reviews?.map((item) => (
               <SwiperSlide key={item?._id}>
                 <FormatQuoteTwoTone
                   className="quoteIcon"

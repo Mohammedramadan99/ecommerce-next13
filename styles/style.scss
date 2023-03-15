@@ -1,29 +1,29 @@
-
-@import './vars';
-@import './globals.scss';
-@import './navbar.scss';
-@import './banner.scss';
-@import './categories.scss';
-@import './productsSlider.scss';
-@import './customerSys.scss';
-@import './SpecialOffer.scss';
-@import './allCategories.scss';
-@import './features.scss';
-@import './productDetails.scss';
-@import './cart.scss';
-@import './login.scss';
-@import './products.scss';
-@import './checkOut.scss';
-@import './footer.scss';
-@import './reviewUs.scss';
-@import './dashboard.scss';
-@import './dashboardMainPage.scss';
-@import './dashboardMainPageRight.scss';
-@import './dashboardProductDetails.scss';
-@import './dashboardUserDetails.scss';
-@import './dashboardOrderDetails.scss';
-@import './dashboardEditProduct.scss';
-@import './dashboardNotifications.scss';
+@import "./vars";
+@import "./globals.scss";
+@import "./navbar.scss";
+@import "./banner.scss";
+@import "./categories.scss";
+@import "./productsSlider.scss";
+@import "./customerSys.scss";
+@import "./SpecialOffer.scss";
+@import "./allCategories.scss";
+@import "./features.scss";
+@import "./productDetails.scss";
+@import "./cart.scss";
+@import "./login.scss";
+@import "./products.scss";
+@import "./checkOut.scss";
+@import "./footer.scss";
+@import "./reviewUs.scss";
+@import "./dashboard.scss";
+@import "./dashboardMainPage.scss";
+@import "./dashboardMainPageRight.scss";
+@import "./dashboardProductDetails.scss";
+@import "./dashboardUserDetails.scss";
+@import "./dashboardOrderDetails.scss";
+@import "./dashboardEditProduct.scss";
+@import "./dashboardNotifications.scss";
+@import "./CardSkeleton.scss";
 
 // ############## classes ##############
 #__next {
@@ -37,17 +37,16 @@
 @media screen and (max-width: 320px) {
   #__next {
     display: flex;
-  flex-direction: column;
-
+    flex-direction: column;
   }
 }
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body{
+body {
   font-family: Poppins, sans-serif;
   // font-family: 'Nunito', sans-serif;
   margin: 0;
@@ -56,47 +55,50 @@ body{
   overflow-x: hidden;
 }
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   width: rem(3);
   transition: $speed_duration;
 }
-::-webkit-scrollbar-track{
+::-webkit-scrollbar-track {
   background-color: transparent;
   transition: $speed_duration;
 }
-::-webkit-scrollbar-thumb{
+::-webkit-scrollbar-thumb {
   background-color: $main__color;
   transition: $speed_duration;
   border-radius: rem(30);
-  &:hover{
-  background-color: darken($main__color, 6%);
+  &:hover {
+    background-color: darken($main__color, 6%);
   }
 }
-input,textarea,select{ 
+input,
+textarea,
+select {
   &:focus {
     outline: none;
   }
 }
-a{
+a {
   text-decoration: none;
   color: inherit;
   color: $dark__color !important;
 }
-ul{
+ul {
   margin: 0;
 }
-li{
+li {
   list-style: none;
   color: $dark__color !important;
 }
-.flex{
+.flex {
   @include flex();
 }
-.css-1lauo1g-MuiRating-root,.MuiRating-root {
+.css-1lauo1g-MuiRating-root,
+.MuiRating-root {
   color: $main__color !important;
 }
 
-.bg-dark{
+.bg-dark {
   background-color: $dark__color;
   color: #fff;
 }
@@ -127,12 +129,12 @@ li{
     width: 1170px;
   }
 }
-.img--container{
+.img--container {
   position: relative;
   width: 100%;
   height: 100%;
 }
-.main-color{
+.main-color {
   color: $main__color;
 }
 .color_dark {
@@ -154,8 +156,8 @@ li{
     background-color: $main__color;
     color: #fff;
   }
-  }
-.logo{
+}
+.logo {
   display: flex;
   align-items: center;
   gap: rem(5);
@@ -163,30 +165,31 @@ li{
   font-weight: 700;
   color: $main__color !important;
   user-select: none;
-  font-family: 'Lobster', cursive;
-  &__one{
+  font-family: "Lobster", cursive;
+  &__one {
     display: inline-block;
     border: 2px solid $main__color;
     padding: rem(10);
     border-radius: 50%;
     @include flex();
     color: $main__color;
-    &.light{
+    &.light {
       color: #fff;
       border-color: #fff;
     }
   }
-  &__two{
+  &__two {
     position: relative;
     font-weight: 500;
-    &.light{
+    &.light {
       color: #fff;
-    &::before,&::after {
-      background-color: #fff;
+      &::before,
+      &::after {
+        background-color: #fff;
+      }
     }
-    }
-    &::before{
-      content: '';
+    &::before {
+      content: "";
       position: absolute;
       bottom: rem(-2);
       left: -12px;
@@ -194,10 +197,9 @@ li{
       height: rem(1);
       background-color: $main__color;
       border-radius: rem(100);
-
     }
-    &::after{
-      content: '';
+    &::after {
+      content: "";
       // position: absolute;
       top: rem(-2);
       left: -12px;
@@ -205,24 +207,22 @@ li{
       height: rem(1);
       background-color: $main__color;
       border-radius: rem(100);
-
     }
-
   }
 }
-.cstm_row{
+.cstm_row {
   display: flex;
   column-gap: rem(20);
-  &:last-child{
+  &:last-child {
     flex: 1;
   }
 }
-.loading--container{
+.loading--container {
   width: 100%;
   height: 100%;
   @include flex();
 }
-.alert{
+.alert {
   display: flex;
   gap: rem(10);
   background-color: #fff;

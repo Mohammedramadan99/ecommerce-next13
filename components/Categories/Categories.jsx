@@ -2,11 +2,28 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSelector } from "react-redux";
-function Categories({ categories }) {
+import Skeleton from "react-loading-skeleton";
+function Categories({ categories, loading }) {
   // const { categories } = useSelector((state) => state.category);
   return (
     <div className="categories">
       <div className="categories__items">
+        {!categories &&
+          Array(2)
+            .fill(0)
+            .map((item, i) => (
+              <div key={i} className="">
+                <div
+                  className="top"
+                  style={{ display: "flex", justifyContent: "center" }}
+                >
+                  <Skeleton width={100} height={40} />
+                </div>
+                <div className="bottom">
+                  <Skeleton height={500} width="100%" />
+                </div>
+              </div>
+            ))}
         {categories?.map((cat) => (
           <Link
             href={`/products?category=${cat.title}`}

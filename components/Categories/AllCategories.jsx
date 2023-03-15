@@ -9,11 +9,11 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { fetchCategoriesAction } from "../../store/categorySlice";
 import { useDispatch, useSelector } from "react-redux";
-import useCategory from "@/hooks/useCategory";
+import CardSkeleton from "../Skeleton/CardSkeleton";
+import Skeleton from "react-loading-skeleton";
 
-function AllCategories({ categories }) {
+function AllCategories({ categories, loading }) {
   const dispatch = useDispatch();
   // const { data } = useCategory();
 
@@ -91,29 +91,46 @@ function AllCategories({ categories }) {
           }}
           virtual
         >
-          {categories?.map((item) => (
-            <SwiperSlide key={item?._id}>
-              <Link
-                href={`/products?category=${item?.title}`}
-                className="allCategories__items__item"
-                data-aos="zoom-out-left"
-              >
-                <div className="allCategories__items__item__img">
-                  <Image
-                    src={item?.images[0]?.url}
-                    layout="fill"
-                    objectFit="contain"
-                    alt="categoryImg"
-                  />
-                </div>
-                <div className="allCategories__items__item__info">
-                  <div className="allCategories__items__item__info__name">
-                    {item.title}
+          {!categories &&
+            Array(9)
+              .fill(0)
+              .map((item, i) => (
+                <SwiperSlide
+                  key={i}
+                  className={`card-skeleton allCategories__items__item`}
+                >
+                  <div className="left">
+                    <Skeleton circle width={40} height={40} />
                   </div>
-                </div>
-              </Link>
-            </SwiperSlide>
-          ))}
+                  <div className="right">
+                    <Skeleton width="100%" />
+                  </div>
+                </SwiperSlide>
+              ))}
+          {categories &&
+            categories.map((item) => (
+              <SwiperSlide key={item?._id}>
+                <Link
+                  href={`/products?category=${item?.title}`}
+                  className="allCategories__items__item"
+                  data-aos="zoom-out-left"
+                >
+                  <div className="allCategories__items__item__img">
+                    <Image
+                      src={item?.images[0]?.url}
+                      layout="fill"
+                      objectFit="contain"
+                      alt="categoryImg"
+                    />
+                  </div>
+                  <div className="allCategories__items__item__info">
+                    <div className="allCategories__items__item__info__name">
+                      {item.title}
+                    </div>
+                  </div>
+                </Link>
+              </SwiperSlide>
+            ))}
         </Swiper>
       </div>
     </div>

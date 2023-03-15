@@ -14,10 +14,10 @@ import useProducts from "../../hooks/useProducts";
 import { fetchProductsAction } from "@/store/productsSlice";
 import useSwr from "swr";
 import fetcher from "@/libs/fetcher";
-function ProductsSlider({ products }) {
+function ProductsSlider() {
   const dispatch = useDispatch();
   const { data, error, isLoading } = useSwr(
-    "https://ecommerce-backend-5zcumxly0-mohammedramadan99.vercel.app/api/product",
+    "https://ecommerce-backend-k2u7pzka2-mohammedramadan99.vercel.app/api/product",
     fetcher,
     {
       revalidateIfStale: false,

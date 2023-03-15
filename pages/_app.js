@@ -4,10 +4,13 @@ import { wrapper } from "../store/store";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/style.scss";
+import "react-loading-skeleton/dist/skeleton.css";
+
 import { useRouter } from "next/router";
 import DashboardLayout from "../components/Layouts/DashboardLayout";
 import MainLayout from "../components/Layouts/MainLayout";
 import "aos/dist/aos.css";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 import Note from "../components/Layouts/Note";
 import { useEffect } from "react";
@@ -24,16 +27,18 @@ const App = ({ Component, ...rest }) => {
 
   return (
     <Provider store={store}>
-      <Note />
-      {router.asPath.startsWith("/dashboard") ? (
-        <DashboardLayout>
-          <Component {...props.pageProps} />
-        </DashboardLayout>
-      ) : (
-        <MainLayout>
-          <Component {...props.pageProps} />
-        </MainLayout>
-      )}
+      <SkeletonTheme>
+        <Note />
+        {router.asPath.startsWith("/dashboard") ? (
+          <DashboardLayout>
+            <Component {...props.pageProps} />
+          </DashboardLayout>
+        ) : (
+          <MainLayout>
+            <Component {...props.pageProps} />
+          </MainLayout>
+        )}
+      </SkeletonTheme>
     </Provider>
   );
 };
