@@ -306,6 +306,9 @@ const productSlice = createSlice({
       state.productsList.allProducts = action.payload?.products;
       state.productsList.totalItems = action.payload?.totalItems;
     },
+    setProductDetails: (state, action) => {
+      state.productDetails = action.payload?.product;
+    },
     showCartComponent: (state, action) => {
       state.cart.showCart = !state.cart.showCart;
     },
@@ -580,6 +583,7 @@ export const {
   removeFromCart,
   allCategories,
   setProducts,
+  setProductDetails,
 } = productSlice.actions;
 
 export default productSlice.reducer;

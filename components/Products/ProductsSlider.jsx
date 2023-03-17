@@ -10,27 +10,18 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { Rating } from "@mui/material";
-import useProducts from "../../hooks/useProducts";
+import { useProducts } from "../../hooks/useProducts";
 import { fetchProductsAction } from "@/store/productsSlice";
 import useSwr from "swr";
 import fetcher from "@/libs/fetcherGet";
-function ProductsSlider() {
+function ProductsSlider({ category }) {
+  useProducts({ category });
   const dispatch = useDispatch();
-  const { data, error, isLoading } = useSwr(
-    "https://ecommerce-backend-k2u7pzka2-mohammedramadan99.vercel.app/api/product",
-    fetcher,
-    {
-      revalidateIfStale: false,
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-    }
-  );
+  const { allProducts } = useSelector((state) => state.products.productsList);
   // useEffect(() => {
   //   dispatch(fetchProductsAction(data));
   // }, [dispatch]);
-  if (data === undefined) {
-    return <div>Loading...</div>;
-  }
+  console.log({ allProducts });
   return (
     <div className="productsSlider">
       <div className="productsSlider__items">
@@ -62,7 +53,7 @@ function ProductsSlider() {
             },
           }}
         >
-          {data?.products?.map((p) => (
+          {allProducts?.map((p) => (
             <SwiperSlide key={p?._id}>
               <Link
                 href={`/product/${p?._id}`}
