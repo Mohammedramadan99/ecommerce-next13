@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import MuiBreadcrumbs from "../Breadcrumbs/Breadcrumbs";
 import {
   addToCart,
-  allCategories,
   fetchFilteredProductsAction,
 } from "../../store/productsSlice";
 import { useState } from "react";
@@ -17,58 +16,56 @@ import CloseIcon from "@mui/icons-material/Close";
 import { fetchCategoriesAction } from "../../store/categorySlice";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import useCategory from "@/hooks/useCategory";
+import { useProducts } from "@/hooks/useProducts";
 
 function Products() {
   const router = useRouter();
   const { category: categoryRoute } = router.query;
-  console.log(categoryRoute);
   // vars
   const dispatch = useDispatch();
-  const [keyword, setKeyword] = useState("");
+  const [search, setSearch] = useState("");
   const [category, setCategory] = useState(categoryRoute ? categoryRoute : "");
-  const [ratings, setRatings] = useState(0);
-  const [priceLess, setPriceLess] = useState(300);
-  const [priceGreater, setPriceGreater] = useState(0);
+  const [rating, setRating] = useState(0);
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
+  const [limit, setLimit] = useState(9);
+  const [page, setPage] = useState(1);
+
   const activeFilter = [
-    keyword !== "" ? { type: "keyword", payload: keyword } : "hide",
+    search !== "" ? { type: "search", payload: search } : "hide",
     category !== "" ? { type: "category", payload: category } : "hide",
-    ratings !== 0 ? { type: "ratings", payload: ratings } : "hide",
-    priceLess !== 300
+    rating !== 0 ? { type: "rating", payload: rating } : "hide",
+    minPrice !== ""
       ? {
-          type: "priceLess",
-          payload: priceLess !== 300 && `less than ${priceLess}`,
+          type: "minPrice",
+          payload: minPrice !== 300 && `less than ${minPrice}`,
         }
       : "hide",
-    priceGreater !== 0
-      ? { type: "priceGreater", payload: `more than ${priceGreater}` }
+    maxPrice !== ""
+      ? { type: "maxPrice", payload: `more than ${maxPrice}` }
       : "hide",
   ];
-  const {
-    products,
-    resPerPage,
-    filteredProductsCount,
-    productsCount,
-    paginationResult,
-  } = useSelector((state) => state.products.productsList);
+  const { allProducts, totalItems } = useSelector(
+    (state) => state.products.productsList
+  );
+  const queries = {
+    search,
+    page,
+    limit,
+    minPrice,
+    maxPrice,
+    minRating: rating,
+    category,
+  };
+  useCategory();
+  const { isLoading } = useProducts(queries);
   const { categories } = useSelector((state) => state.category);
-  const { loading } = useSelector((state) => state.products);
-  const [currentPage, setCurrentPage] = useState(1);
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
   // functionnality
-  const cats = products?.map((p) => p.category);
-  const uniqueCategories = cats?.filter(function (item, pos) {
-    return cats.indexOf(item) == pos;
-  });
-  console.log(uniqueCategories);
-
-  const perPage = { n: 9 };
+  const totalPages = Math.ceil(totalItems / limit);
+  console.log({ totalPages });
   const categoryHandler = (c) => {
     setCategory(c);
-  };
-  const priceHandler = (event, newPrice) => {
-    console.log(event);
-    setPrice(newPrice);
   };
   const removeActiveFilter = (item) => {
     console.log(item);
@@ -76,17 +73,17 @@ function Products() {
       case "category":
         setCategory("");
         break;
-      case "keyword":
-        setKeyword("");
+      case "search":
+        setSearch("");
         break;
-      case "priceLess":
-        setPriceLess(300);
+      case "minPrice":
+        setMinPrice("");
         break;
-      case "priceGreater":
-        setPriceGreater(0);
+      case "maxPrice":
+        setMaxPrice("");
         break;
-      case "ratings":
-        setRatings(0);
+      case "rating":
+        setRating(0);
         break;
       default:
         return;
@@ -94,49 +91,39 @@ function Products() {
     }
   };
   const handleChange = (e, p) => {
-    setCurrentPage(p);
+    setPage(p);
   };
   const addToCartHandler = (product) => {
     dispatch(addToCart({ ...product, quantity: 1 }));
   };
   useEffect(() => {
-    if (priceLess !== 300) {
-      dispatch(
-        fetchFilteredProductsAction({
-          keyword,
-          currentPage,
-          priceLess,
-          category,
-          ratings,
-        })
-      );
-    } else if (priceGreater !== 0) {
-      dispatch(
-        fetchFilteredProductsAction({
-          keyword,
-          currentPage,
-          priceGreater,
-          category,
-          ratings,
-        })
-      );
-    } else {
-      dispatch(
-        fetchFilteredProductsAction({ keyword, currentPage, category, ratings })
-      );
-    }
-  }, [
-    dispatch,
-    keyword,
-    priceLess,
-    priceGreater,
-    category,
-    ratings,
-    currentPage,
-  ]);
-  useEffect(() => {
-    dispatch(fetchCategoriesAction());
-  }, []);
+    // if (minPrice !== 300) {
+    //   // dispatch(
+    //   //   fetchFilteredProductsAction({
+    //   //     search,
+    //   //     page,
+    //   //     minPrice,
+    //   //     category,
+    //   //     rating,
+    //   //   })
+    //   // );
+    // } else if (maxPrice !== 0) {
+    //   // dispatch(
+    //   //   fetchFilteredProductsAction({
+    //   //     search,
+    //   //     page,
+    //   //     maxPrice,
+    //   //     category,
+    //   //     rating,
+    //   //   })
+    //   // );
+    // } else {
+    //   dispatch(
+    //     fetchFilteredProductsAction({ search, page, category, rating })
+    //   );
+    // }
+    // useProducts()
+  }, [dispatch, search, minPrice, maxPrice, category, rating, page]);
 
   return (
     <div className="products">
@@ -172,7 +159,7 @@ function Products() {
                   >
                     <CloseIcon />
                   </div>
-                  {item.type === "ratings" ? (
+                  {item.type === "rating" ? (
                     <Rating
                       value={item?.payload}
                       readOnly
@@ -186,7 +173,8 @@ function Products() {
                 </div>
               ))}
           </div>
-          <form className="products__sidebar__sections">
+          {/* Filteration */}
+          <div className="products__sidebar__sections">
             {/* C A T E G O R Y */}
             <Accordion>
               <Accordion.Item
@@ -231,10 +219,10 @@ function Products() {
                   </p>
 
                   <Slider
-                    value={priceLess}
+                    value={maxPrice}
                     onChange={(e, price) => {
-                      setPriceLess(price);
-                      setPriceGreater(0);
+                      // setMinPrice(price);
+                      setMaxPrice(price);
                     }}
                     valueLabelDisplay="auto"
                     aria-labelledby="range-slider"
@@ -247,15 +235,15 @@ function Products() {
                   </p>
 
                   <Slider
-                    value={priceGreater}
+                    value={minPrice}
                     onChange={(e, price) => {
-                      setPriceGreater(price);
-                      setPriceLess(300);
+                      setMinPrice(price);
+                      // setMaxPrice(price);
                     }}
                     aria-labelledby="continuous-slider"
                     valueLabelDisplay="auto"
                     min={7}
-                    max={300}
+                    max={1000}
                   />
                 </Accordion.Body>
               </Accordion.Item>
@@ -269,9 +257,9 @@ function Products() {
                 </Accordion.Header>
                 <Accordion.Body>
                   <Slider
-                    value={ratings}
+                    value={rating}
                     onChange={(e, newRating) => {
-                      setRatings(newRating);
+                      setRating(newRating);
                     }}
                     aria-labelledby="continuous-slider"
                     valueLabelDisplay="auto"
@@ -281,32 +269,32 @@ function Products() {
                 </Accordion.Body>
               </Accordion.Item>
             </Accordion>
-          </form>
+          </div>
         </div>
         <div className="products__right" data-aos="fade-left">
           <div className="products__right__search">
             <input
               type="text"
               placeholder="search ..."
-              value={keyword}
-              onChange={(e) => setKeyword(e.target.value)}
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
             />
             <div className="products__right__search__icon">
               <SearchIcon />
             </div>
           </div>
 
-          {loading ? (
+          {isLoading ? (
             <div className="spinner">
               <Spinner animation="border" variant="danger" />
             </div>
-          ) : products?.length < 1 ? (
+          ) : allProducts?.length < 1 ? (
             <div className="products__right__items">
               there is no products with that filter
             </div>
           ) : (
             <div className="products__right__items">
-              {products?.map((p) => (
+              {allProducts?.map((p) => (
                 <Link
                   key={p._id}
                   href={`/product/${p._id}`}
@@ -348,7 +336,7 @@ function Products() {
           )}
           <div className="products__right__pagination">
             <Pagination
-              count={paginationResult?.numberOfPages}
+              count={totalPages}
               variant="outlined"
               color="secondary"
               onChange={handleChange}

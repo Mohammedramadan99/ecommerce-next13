@@ -2,9 +2,7 @@ import { createAsyncThunk, createSlice, createAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const origin =
-  typeof window !== "undefined" && window.location.origin
-    ? window.location.origin
-    : "";
+  "https://ecommerce-backend-k2u7pzka2-mohammedramadan99.vercel.app";
 //action to redirect
 const resetCategoryAction = createAction("category/reset");
 //create
@@ -163,6 +161,9 @@ const categorySlices = createSlice({
       state.addedReview = false;
       state.categoryCreated = "";
     },
+    setCategories: (state, action) => {
+      state.categories = action.payload.categories;
+    },
   },
   extraReducers: (builder) => {
     //create
@@ -256,5 +257,5 @@ const categorySlices = createSlice({
     });
   },
 });
-export const { reset } = categorySlices.actions;
+export const { reset, setCategories } = categorySlices.actions;
 export default categorySlices.reducer;

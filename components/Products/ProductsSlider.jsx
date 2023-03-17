@@ -13,7 +13,7 @@ import { Rating } from "@mui/material";
 import useProducts from "../../hooks/useProducts";
 import { fetchProductsAction } from "@/store/productsSlice";
 import useSwr from "swr";
-import fetcher from "@/libs/fetcher";
+import fetcher from "@/libs/fetcherGet";
 function ProductsSlider() {
   const dispatch = useDispatch();
   const { data, error, isLoading } = useSwr(
@@ -28,7 +28,6 @@ function ProductsSlider() {
   // useEffect(() => {
   //   dispatch(fetchProductsAction(data));
   // }, [dispatch]);
-  console.log({ data });
   if (data === undefined) {
     return <div>Loading...</div>;
   }

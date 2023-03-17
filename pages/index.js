@@ -7,7 +7,7 @@ import { fetchCategoriesAction } from "../store/categorySlice";
 import { fetchGlobalReviewsAction } from "../store/reviewUsSlice";
 import { wrapper } from "@/store/store";
 import useSwr from "swr";
-import fetcher from "@/libs/fetcher";
+import fetcher from "@/libs/fetcherGet";
 // import useProducts from "../hooks/useProducts";
 const Banner = dynamic(() => import("../components/Banner/Banner"), {
   ssr: false,
