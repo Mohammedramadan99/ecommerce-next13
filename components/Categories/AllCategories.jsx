@@ -13,11 +13,11 @@ import { useDispatch, useSelector } from "react-redux";
 import CardSkeleton from "../Skeleton/CardSkeleton";
 import Skeleton from "react-loading-skeleton";
 
-function AllCategories({ categories, loading }) {
+function AllCategories({ isLoading }) {
   const dispatch = useDispatch();
   // const { data } = useCategory();
 
-  // const { categories } = useSelector((state) => state.category);
+  const { categories } = useSelector((state) => state.category);
   // const [categories, setCategories] = useState([
   //   {
   //     id: Math.floor(Math.random() * 1000),
@@ -91,7 +91,7 @@ function AllCategories({ categories, loading }) {
           }}
           virtual
         >
-          {!categories &&
+          {isLoading &&
             Array(9)
               .fill(0)
               .map((item, i) => (

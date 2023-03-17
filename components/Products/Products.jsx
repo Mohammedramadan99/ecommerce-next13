@@ -16,7 +16,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { fetchCategoriesAction } from "../../store/categorySlice";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import useCategory from "@/hooks/useCategory";
+import { useCategory } from "@/hooks/useCategory";
 import { useProducts } from "@/hooks/useProducts";
 
 function Products() {
@@ -96,34 +96,6 @@ function Products() {
   const addToCartHandler = (product) => {
     dispatch(addToCart({ ...product, quantity: 1 }));
   };
-  useEffect(() => {
-    // if (minPrice !== 300) {
-    //   // dispatch(
-    //   //   fetchFilteredProductsAction({
-    //   //     search,
-    //   //     page,
-    //   //     minPrice,
-    //   //     category,
-    //   //     rating,
-    //   //   })
-    //   // );
-    // } else if (maxPrice !== 0) {
-    //   // dispatch(
-    //   //   fetchFilteredProductsAction({
-    //   //     search,
-    //   //     page,
-    //   //     maxPrice,
-    //   //     category,
-    //   //     rating,
-    //   //   })
-    //   // );
-    // } else {
-    //   dispatch(
-    //     fetchFilteredProductsAction({ search, page, category, rating })
-    //   );
-    // }
-    // useProducts()
-  }, [dispatch, search, minPrice, maxPrice, category, rating, page]);
 
   return (
     <div className="products">

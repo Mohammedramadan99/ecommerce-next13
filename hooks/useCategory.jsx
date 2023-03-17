@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import useSwr from "swr";
 import fetcherGet from "../libs/fetcherGet";
 
-const useCategory = () => {
+export function useCategory() {
   const dispatch = useDispatch();
   const { data, error, isLoading } = useSwr(
     `${BaseUrl}/api/category`,
@@ -22,6 +22,9 @@ const useCategory = () => {
   if (data) {
     dispatch(setCategories(data));
   }
-};
-
-export default useCategory;
+  return {
+    isLoading,
+    data,
+    error,
+  };
+}

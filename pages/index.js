@@ -8,6 +8,7 @@ import { fetchGlobalReviewsAction } from "../store/reviewUsSlice";
 import { wrapper } from "@/store/store";
 import useSwr from "swr";
 import fetcher from "@/libs/fetcherGet";
+import { useCategory } from "@/hooks/useCategory";
 // import useProducts from "../hooks/useProducts";
 const Banner = dynamic(() => import("../components/Banner/Banner"), {
   ssr: false,
@@ -51,19 +52,7 @@ export default function Home() {
 
   // fetch categories
   // categories
-  const {
-    data,
-    error: categoryError,
-    isLoading: categoryLoading,
-  } = useSwr(
-    "https://ecommerce-backend-k2u7pzka2-mohammedramadan99.vercel.app/api/category",
-    fetcher,
-    {
-      revalidateIfStale: false,
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-    }
-  );
+  const { isLoading: categoryLoading } = useCategory();
   // get website reviews
   const {
     data: reviewsData,
@@ -88,12 +77,12 @@ export default function Home() {
   // }, [dispatch]);
   return (
     <div>
-      <AllCategories categories={data?.categories} />
+      <AllCategories isLoading={categoryLoading} />
       <Banner />
-      <Categories categories={data?.categories} loading={categoryLoading} />
+      <Categories isLoading={categoryLoading} />
       <ProductsSlider />
       <SpecialOffer />
-      <CustomerSays reviews={reviewsData?.reviews} loading={categoryLoading} />
+      <CustomerSays reviews={reviewsData?.reviews} />
       <Features />
       {/* {reviewsLoading ? (
         <div

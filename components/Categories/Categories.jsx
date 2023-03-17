@@ -3,12 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import Skeleton from "react-loading-skeleton";
-function Categories({ categories, loading }) {
-  // const { categories } = useSelector((state) => state.category);
+function Categories({ isLoading }) {
+  const { categories } = useSelector((state) => state.category);
   return (
     <div className="categories">
       <div className="categories__items">
-        {!categories &&
+        {isLoading &&
           Array(2)
             .fill(0)
             .map((item, i) => (
