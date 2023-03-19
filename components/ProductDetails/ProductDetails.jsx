@@ -32,6 +32,8 @@ import ProductsSlider from "../Products/ProductsSlider";
 import { Spinner } from "react-bootstrap";
 import { useProductDetails } from "@/hooks/useProductDetails";
 import { useProducts } from "@/hooks/useProducts";
+import axios from "axios";
+import BaseUrl from "@/utils/db/BaseUrl";
 function ProductDetails() {
   const router = useRouter();
   const { id } = router.query;
@@ -64,13 +66,28 @@ function ProductDetails() {
     open ? setOpen(false) : setOpen(true);
   };
 
-  const reviewSubmitHandler = () => {
+  const reviewSubmitHandler = async () => {
     if (!userAuth || !userAuth.token) {
       setAlert("you need to login first");
     } else {
-      const myForm = { rating: rating, comment: comment, productId: id };
-      dispatch(addReview(myForm));
-      setOpen(false);
+      try {
+        const myForm = { rating: rating, comment: comment, productId: id };
+        setOpen(false);
+        const config = {
+          headers: {
+            Authorization: `Bearer ${userAuth?.token}`,
+          },
+        };
+        const { data } = await axios.put(
+          `${BaseUrl}/api/review`,
+          myForm,
+          config
+        );
+        console.log({ data });
+        // dispatch(addReview(data));
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
   // useEffect(() =>

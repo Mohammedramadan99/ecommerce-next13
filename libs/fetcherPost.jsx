@@ -1,5 +1,5 @@
 import axios from "axios";
 
-const fetcherPost = (url) => axios.post(url).then((res) => res.data);
-
+const fetcherPost = (url, params) =>
+  axios.post(url, params).then((res) => res.data);
 export default fetcherPost;

@@ -8,8 +8,8 @@ export function useProducts(queries) {
   console.log(queries);
   const allData = {
     search: queries?.search ? queries?.search : "",
-    page: queries?.page ? queries?.page : 1,
-    limit: queries?.limit ? queries?.limit : 9,
+    page: queries?.page ? queries?.page : "",
+    limit: queries?.limit ? queries?.limit : "",
     minPrice: queries?.minPrice ? queries?.minPrice : "",
     maxPrice: queries?.maxPrice ? queries?.maxPrice : "",
     minRating: queries?.minRating ? queries?.minRating : 0,
@@ -17,6 +17,7 @@ export function useProducts(queries) {
   };
   const { search, page, maxPrice, minPrice, minRating, category, limit } =
     allData;
+  console.log({ category });
 
   const link = `api/product?search=${search}&cat=${category}&minRating=${minRating}&minPrice=${minPrice}&maxPrice=${maxPrice}&page=${page}&limit=${limit}`;
   const { data, error, isLoading } = useSWR(`${BaseUrl}/${link}`, fetcherGet, {

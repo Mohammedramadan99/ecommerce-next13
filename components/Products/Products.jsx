@@ -1,19 +1,14 @@
 import { Pagination, Rating, Slider } from "@mui/material";
 import Image from "next/image";
 import React from "react";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import MuiBreadcrumbs from "../Breadcrumbs/Breadcrumbs";
-import {
-  addToCart,
-  fetchFilteredProductsAction,
-} from "../../store/productsSlice";
+import { addToCart } from "../../store/productsSlice";
 import { useState } from "react";
 import Accordion from "react-bootstrap/Accordion";
 import SearchIcon from "@mui/icons-material/Search";
 import Spinner from "react-bootstrap/Spinner";
 import CloseIcon from "@mui/icons-material/Close";
-import { fetchCategoriesAction } from "../../store/categorySlice";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCategory } from "@/hooks/useCategory";

@@ -1,0 +1,28 @@
+{
+  "status": "success",
+  "results": 1,
+  "data": {
+    "data": [
+      {
+        "ratingsAverage": 0,
+        "ratingsQuantity": 1,
+        "images": [],
+        "startDates": ["1111-10-31T21:02:20.000Z"],
+        "secretTour": false,
+        "guides": [],
+        "_id": "640f670ece8ee552f0f8e0e1",
+        "imageCover": "ahmad.png",
+        "summary": "test",
+        "price": 5,
+        "difficulty": "easy",
+        "maxGroupSize": 5,
+        "duration": 4,
+        "name": "alssdj",
+        "locations": [],
+        "slug": "alssdj",
+        "durationWeeks": 0.5714285714285714,
+        "id": "640f670ece8ee552f0f8e0e1"
+      }
+    ]
+  }
+}
