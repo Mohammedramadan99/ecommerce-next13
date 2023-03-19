@@ -1,3 +1,4 @@
+import BaseUrl from "@/utils/db/BaseUrl";
 import { createAsyncThunk, createSlice, createAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -21,7 +22,11 @@ export const registerUserAction = createAsyncThunk(
     //http call
     console.log(user);
     try {
-      const { data } = await axios.post(`${origin}/api/auth/register`, user, config);
+      const { data } = await axios.post(
+        `${BaseUrl}/api/auth/register`,
+        user,
+        config
+      );
       return data;
     } catch (error) {
       if (!error.response) {
@@ -38,7 +43,7 @@ export const loginUserAction = createAsyncThunk(
   async (userData, { rejectWithValue, dispatch }) => {
     try {
       //make http call
-      const { data } = await axios.post(`${origin}/api/auth/login`, userData);
+      const { data } = await axios.post(`${BaseUrl}/api/auth/login`, userData);
       console.log(data);
 
       //save user into local storage
@@ -66,7 +71,7 @@ export const userProfileAction = createAsyncThunk(
         Authorization: `Bearer ${userAuth?.token}`,
       },
     };
-    
+
     //http call
     try {
       const { data } = await axios.get(
@@ -94,13 +99,10 @@ export const deleteUserAction = createAsyncThunk(
         Authorization: `Bearer ${userAuth?.token}`,
       },
     };
-    
+
     //http call
     try {
-      const { data } = await axios.delete(
-        `${origin}/api/users/${id}`,
-        config
-      );
+      const { data } = await axios.delete(`${origin}/api/users/${id}`, config);
       return data;
     } catch (error) {
       if (!error?.response) {
@@ -243,7 +245,7 @@ export const fetchUserDetailsAction = createAsyncThunk(
   "user/detail",
   async (id, { rejectWithValue, dispatch }) => {
     try {
-      console.log("dashboardUserDetailsID",id);
+      console.log("dashboardUserDetailsID", id);
       const { data } = await axios.get(`${origin}/api/users/${id}`);
       return data;
     } catch (error) {
@@ -353,7 +355,7 @@ export const uploadCoverPhototAction = createAsyncThunk(
         Authorization: `Bearer ${userAuth?.token}`,
       },
     };
-    console.log(userAuth.id)
+    console.log(userAuth.id);
     try {
       //http call
       console.log(coverImg);
@@ -362,7 +364,7 @@ export const uploadCoverPhototAction = createAsyncThunk(
         coverImg,
         config
       );
-      console.log(data)
+      console.log(data);
       return data;
     } catch (error) {
       if (!error?.response) throw error;
@@ -474,6 +476,10 @@ const usersSlices = createSlice({
       state.registered = null;
       state.loggedOut = false;
       state.isDeleted = false;
+    },
+    setLogin: (state, action) => {
+      console.log("setLogin", action.payload);
+      state.userAuth = action?.payload;
     },
   },
   extraReducers: (builder) => {
@@ -763,7 +769,7 @@ const usersSlices = createSlice({
     builder.addCase(deleteUserAction.fulfilled, (state, action) => {
       state.isDeleted = true;
       state.loading = false;
-      state.appErr = null; 
+      state.appErr = null;
       state.serverErr = null;
     });
     builder.addCase(deleteUserAction.rejected, (state, action) => {
@@ -790,6 +796,6 @@ const usersSlices = createSlice({
   },
 });
 
-export const { reset } = usersSlices.actions;
+export const { reset, setLogin } = usersSlices.actions;
 
 export default usersSlices.reducer;

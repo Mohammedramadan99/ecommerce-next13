@@ -45,7 +45,7 @@ function ProductDetails() {
     productsList: { allProducts },
   } = useSelector((state) => state.products);
 
-  const { isLoading } = useProductDetails(id);
+  const { isLoading, mutate } = useProductDetails(id);
 
   const { userAuth } = useSelector((state) => state.users);
   const [quantity, setQuantity] = useState(0);
@@ -73,29 +73,28 @@ function ProductDetails() {
       try {
         const myForm = { rating: rating, comment: comment, productId: id };
         setOpen(false);
-        const config = {
-          headers: {
-            Authorization: `Bearer ${userAuth?.token}`,
-          },
-        };
-        const { data } = await axios.put(
-          `${BaseUrl}/api/review`,
-          myForm,
-          config
-        );
-        console.log({ data });
-        // dispatch(addReview(data));
+        // const config = {
+        //   headers: {
+        //     Authorization: `Bearer ${userAuth?.token}`,
+        //   },
+        // };
+        // const { data } = await axios.put(
+        //   `${BaseUrl}/api/review`,
+        //   myForm,
+        //   config
+        // );
+        // console.log({ data });
+        dispatch(addReview(myForm));
       } catch (error) {
         console.log(error);
       }
     }
   };
+  if (addedReview) {
+    mutate();
+  }
   // useEffect(() =>
   // {
-  //   if (addedReview)
-  //   {
-  //     dispatch(reset())
-  //   }
   //   dispatch(fetchProductDetailsAction(id))
   //   dispatch(fetchFilteredProductsAction({category:product?.category}))
   // }, [dispatch, id, addedReview, product?.category])

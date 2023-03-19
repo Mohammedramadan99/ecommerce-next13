@@ -1,3 +1,4 @@
+import BaseUrl from "@/utils/db/BaseUrl";
 import { createAsyncThunk, createSlice, createAction } from "@reduxjs/toolkit";
 import axios from "axios";
 //Create product action
@@ -32,7 +33,7 @@ export const createProductAction = createAsyncThunk(
       const productData = { ...product };
       console.log("from redx" + productData);
       const { data } = await axios.post(
-        `${origin}/api/product`,
+        `${BaseUrl}/api/product`,
         productData,
         config
       );
@@ -62,7 +63,7 @@ export const updateproductAction = createAsyncThunk(
     try {
       //http call
       const { data } = await axios.put(
-        `${origin}/api/product/${product?.id}`,
+        `${BaseUrl}/api/product/${product?.id}`,
         product.props,
         config
       );
@@ -91,7 +92,7 @@ export const deleteproductAction = createAsyncThunk(
     try {
       //http call
       const { data } = await axios.delete(
-        `${origin}/api/product/${productId}`,
+        `${BaseUrl}/api/product/${productId}`,
         config
       );
       //dispatch
@@ -109,7 +110,7 @@ export const fetchProductsAction = createAsyncThunk(
   async (data, { rejectWithValue, getState, dispatch }) => {
     try {
       //http call
-      // const { data } = await axios.get(`${origin}/api/product`);
+      // const { data } = await axios.get(`${BaseUrl}/api/product`);
       //dispatch
       // dispatch(resetproductDelete());
       return data;
@@ -133,7 +134,7 @@ export const addReview = createAsyncThunk(
         },
       };
       const { data } = await axios.put(
-        `${origin}/api/review`,
+        `${BaseUrl}/api/review`,
         reviewData,
         config
       );
@@ -194,7 +195,7 @@ export const fetchFilteredProductsAction = createAsyncThunk(
         link = `api/product?ratings[gte]=${ratings}&price[gte]=${priceGreater}&page=1`;
         // link = link.concat(`&ratings[gte]=${ratings}`);
       }
-      const { data } = await axios.put(`${origin}/${link}`, perPage);
+      const { data } = await axios.put(`${BaseUrl}/${link}`, perPage);
 
       return data;
     } catch (error) {
@@ -209,7 +210,7 @@ export const fetchProductDetailsAction = createAsyncThunk(
   async (id, { rejectWithValue, getState, dispatch }) => {
     try {
       console.log(id);
-      const { data } = await axios.get(`${origin}/api/product/${id}`);
+      const { data } = await axios.get(`${BaseUrl}/api/product/${id}`);
       return data;
     } catch (error) {
       if (!error?.response) throw error;

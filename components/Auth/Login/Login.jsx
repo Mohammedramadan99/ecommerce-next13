@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUserAction } from "../../../store/usersSlice";
+import { loginUserAction, setLogin } from "../../../store/usersSlice";
 import { useRouter } from "next/router";
 import { Spinner } from "react-bootstrap";
-import { useLogin } from "@/hooks/useLogin";
-import useSWR from "swr";
-import axios from "axios";
+
 import BaseUrl from "@/utils/db/BaseUrl";
+import axios from "axios";
 
 function Login() {
   const router = useRouter();
@@ -20,20 +19,27 @@ function Login() {
     const userData = { email, password };
 
     try {
-      const response = await fetch(`${BaseUrl}/api/auth/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      });
+      // const response = await fetch(`${BaseUrl}/api/auth/login`, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(userData),
+      // });
 
-      if (response.ok) {
-        const data = await response.json();
-        console.log({ data });
-      } else {
-        throw new Error("Request failed.");
-      }
+      // if (response.ok) {
+      //   const data = await response.json();
+      //   console.log({ data });
+      //   dispatch(setLogin(data));
+      // } else {
+      //   throw new Error("Request failed.");
+      // }
+
+      // const { data } = await axios.post(`${BaseUrl}/api/auth/login`, {
+      //   userData,
+      // });
+      dispatch(loginUserAction(userData));
+      console.log(data);
     } catch (error) {
       console.error(error);
     }

@@ -8,7 +8,7 @@ import fetcherGet from "../libs/fetcherGet";
 export function useProductDetails(id) {
   //   console.log({ id });
   const dispatch = useDispatch();
-  const { data, error, isLoading } = useSwr(
+  const { data, error, isLoading, mutate } = useSwr(
     `${BaseUrl}/api/product/${id}`,
     fetcherGet,
     {
@@ -28,5 +28,6 @@ export function useProductDetails(id) {
     isLoading,
     data,
     error,
+    mutate,
   };
 }
