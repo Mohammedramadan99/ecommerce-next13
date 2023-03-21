@@ -19,26 +19,26 @@ function Login() {
     const userData = { email, password };
 
     try {
-      const response = await fetch(`${BaseUrl}/api/auth/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      });
+      // const response = await fetch(`${BaseUrl}/api/auth/login`, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(userData),
+      // });
 
-      if (response.ok) {
-        const data = await response.json();
-        console.log({ data });
-        dispatch(setLogin(data));
-      } else {
-        throw new Error("Request failed.");
-      }
+      // if (response.ok) {
+      //   const data = await response.json();
+      //   console.log({ data });
+      //   dispatch(setLogin(data));
+      // } else {
+      //   throw new Error("Request failed.");
+      // }
 
       // const { data } = await axios.post(`${BaseUrl}/api/auth/login`, {
       //   userData,
       // });
-      // dispatch(loginUserAction(userData));
+      dispatch(loginUserAction(userData));
       console.log(data);
     } catch (error) {
       console.error(error);

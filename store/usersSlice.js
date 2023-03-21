@@ -2,15 +2,6 @@ import BaseUrl from "@/utils/db/BaseUrl";
 import { createAsyncThunk, createSlice, createAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const hostname =
-  typeof window !== "undefined" && window.location.hostname
-    ? window.location.hostname
-    : "";
-const origin =
-  typeof window !== "undefined" && window.location.origin
-    ? window.location.origin
-    : "";
-
 export const registerUserAction = createAsyncThunk(
   "users/register",
   async (user, { rejectWithValue, dispatch }) => {
