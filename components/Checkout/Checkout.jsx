@@ -1,34 +1,29 @@
-import MuiBreadcrumbs from '../Breadcrumbs/Breadcrumbs'
-import Form from 'react-bootstrap/Form';
-import {useRouter} from 'next/router'
-import { useDispatch, useSelector } from 'react-redux';
-import Image from 'next/image';
-import { useState } from 'react';
-import { stripeAction } from '../../store/orderSlice'
+import MuiBreadcrumbs from "../Breadcrumbs/Breadcrumbs";
+import Form from "react-bootstrap/Form";
+import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import Image from "next/image";
+import { useState } from "react";
+import { stripeAction } from "../../store/orderSlice";
 
-function Checkout()
-{
-  const dispatch = useDispatch()
-  const router = useRouter()
-  const { products, total } = useSelector(state => state.products.cart)
-  const { session } = useSelector(state => state.order)
+function Checkout() {
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const { products, total } = useSelector((state) => state.products.cart);
+  const { session } = useSelector((state) => state.order);
 
-  const [shipping, setShipping] = useState(7)
-  const [firstName,setFirstName] = useState('')
-  const [lastName,setLastName] = useState('')
-  const [email, setEmail] = useState('')
-  const [address, setAddress] = useState('')
-  const [country, setCountry] = useState('')
-  const [city, setCity] = useState('')
-  const [postalCode, setPostalCode] = useState('')
-  const origin =
-    typeof window !== "undefined" && window.location.origin
-      ? window.location.origin
-      : "";
-  const checkoutHandler = async e =>
-  {
-    e.preventDefault()
-    const cartProducts = {products}
+  const [shipping, setShipping] = useState(7);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const [country, setCountry] = useState("");
+  const [city, setCity] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+
+  const checkoutHandler = async (e) => {
+    e.preventDefault();
+    const cartProducts = { products };
     // router.push('/payment')
     // const stripe = await getStripe()
     // const config = {
@@ -37,13 +32,13 @@ function Checkout()
     //   },
     // };
     //   await fetch('/api/stripe', {
-      //   method: 'POST',
+    //   method: 'POST',
     //   headers: { 'Content-Type': 'application/json' },
     //   body: cartProducts
     // })
     // if (response.statusCode === 500) return;
     // const data = await res.json()
-    dispatch(stripeAction(cartProducts))
+    dispatch(stripeAction(cartProducts));
     // const data = axios.post(
     //   `${origin}/api/stripe/`,
     //   cartProducts,
@@ -52,7 +47,7 @@ function Checkout()
 
     // const res = axios.post(`${origin}/api/stripe/`,cartProducts,config)
     // console.log(res)
-    
+
     // console.log(order)
     // const stripe = await getStripe();
     // stripe?.redirectToCheckout({ sessionId: order?.id });
@@ -60,23 +55,31 @@ function Checkout()
     // {
     //   router.push(res.url)
     // }
-  }
-  if (session)
-  {
-    if (typeof window !== 'undefined')
-    localStorage.setItem('cartProducts', products)
-    router.push(session?.url)
+  };
+  if (session) {
+    if (typeof window !== "undefined")
+      localStorage.setItem("cartProducts", products);
+    router.push(session?.url);
   }
 
   return (
-    <div className='checkout'>
+    <div className="checkout">
       <div className="container">
         <div className="checkout__left">
           <div className="checkout__left__title">checkout</div>
           <div className="checkout__left__breadcrumbs">
-            <MuiBreadcrumbs items={[{ title: 'cart', link: '#' }, { title: 'shipping', link: '#' }, { title: 'payment', link: '#' }]} />
+            <MuiBreadcrumbs
+              items={[
+                { title: "cart", link: "#" },
+                { title: "shipping", link: "#" },
+                { title: "payment", link: "#" },
+              ]}
+            />
           </div>
-          <form className="checkout__left__form" onSubmit={e => checkoutHandler(e)}>
+          <form
+            className="checkout__left__form"
+            onSubmit={(e) => checkoutHandler(e)}
+          >
             <div className="checkout__left__form__blockOne">
               <div className="checkout__left__form__blockOne__contactInfo">
                 <div className="checkout__left__form__blockOne__contactInfo__header">
@@ -86,7 +89,7 @@ function Checkout()
                   <Form.Floating className="mb-3">
                     <Form.Control
                       id="floatingInputCustom"
-                      type="email" 
+                      type="email"
                       placeholder="name@example.com"
                       onChange={(e) => setEmail(e.target.value)}
                     />
@@ -107,7 +110,7 @@ function Checkout()
                         id="floatingInputCustom"
                         type="text"
                         placeholder="first name"
-                        onChange={ (e) => setFirstName(e.target.value) }
+                        onChange={(e) => setFirstName(e.target.value)}
                       />
                       <label htmlFor="floatingInputCustom">first name</label>
                     </Form.Floating>
@@ -116,7 +119,7 @@ function Checkout()
                         id="floatingInputCustom"
                         type="text"
                         placeholder="last name"
-                        onChange={(e) => setLastName(e.target.value) }
+                        onChange={(e) => setLastName(e.target.value)}
                       />
                       <label htmlFor="floatingInputCustom">last name</label>
                     </Form.Floating>
@@ -127,7 +130,7 @@ function Checkout()
                       id="floatingInputCustom"
                       type="text"
                       placeholder="address"
-                      onChange={e => setAddress(e.target.value)}
+                      onChange={(e) => setAddress(e.target.value)}
                     />
                     <label htmlFor="floatingInputCustom">address</label>
                   </Form.Floating>
@@ -137,9 +140,11 @@ function Checkout()
                         id="floatingInputCustom"
                         type="text"
                         placeholder="country"
-                        onChange={ e => setCountry(e.target.value) }
+                        onChange={(e) => setCountry(e.target.value)}
                       />
-                      <label htmlFor="floatingInputCustom">country / region</label>
+                      <label htmlFor="floatingInputCustom">
+                        country / region
+                      </label>
                     </Form.Floating>
                     <Form.Floating className="mb-3">
                       <Form.Control
@@ -155,12 +160,16 @@ function Checkout()
                         id="floatingInputCustom"
                         type="text"
                         placeholder="address"
-                        onChange={e => setPostalCode(e.target.value)}
+                        onChange={(e) => setPostalCode(e.target.value)}
                       />
                       <label htmlFor="floatingInputCustom">postal code</label>
                     </Form.Floating>
                   </div>
-                  <input type="submit" className='checkout__left__form__blockTwo__shipping__inputs__submit' value="continue to shipping" />
+                  <input
+                    type="submit"
+                    className="checkout__left__form__blockTwo__shipping__inputs__submit"
+                    value="continue to shipping"
+                  />
                 </div>
               </div>
             </div>
@@ -168,15 +177,29 @@ function Checkout()
         </div>
         <div className="checkout__right">
           <div className="checkout__right__cartProducts">
-            {products?.map(p => (
+            {products?.map((p) => (
               <div key={p._id} className="checkout__right__cartProducts__item">
                 <div className="checkout__right__cartProducts__item__img">
-                  <Image src={p?.images[0]?.url} layout="fill" objectFit='contain' alt="productImg" />
+                  <Image
+                    src={p?.images[0]?.url}
+                    layout="fill"
+                    objectFit="contain"
+                    alt="productImg"
+                  />
                 </div>
                 <div className="checkout__right__cartProducts__item__details">
-                  <div className="checkout__right__cartProducts__item__details__name"> {p.name} </div>
-                  <div className="checkout__right__cartProducts__item__details__category"> {p.category} </div>
-                  <span className="checkout__right__cartProducts__item__details__qty"> X{p.quantity} </span>
+                  <div className="checkout__right__cartProducts__item__details__name">
+                    {" "}
+                    {p.name}{" "}
+                  </div>
+                  <div className="checkout__right__cartProducts__item__details__category">
+                    {" "}
+                    {p.category}{" "}
+                  </div>
+                  <span className="checkout__right__cartProducts__item__details__qty">
+                    {" "}
+                    X{p.quantity}{" "}
+                  </span>
                 </div>
               </div>
             ))}
@@ -184,23 +207,40 @@ function Checkout()
           <div className="checkout__right__cartSummery">
             <hr />
             <div className="checkout__right__cartSummery__item">
-              <div className="checkout__right__cartSummery__item__title">subtotal</div>
-              <div className="checkout__right__cartSummery__item__number"> ${total} </div>
+              <div className="checkout__right__cartSummery__item__title">
+                subtotal
+              </div>
+              <div className="checkout__right__cartSummery__item__number">
+                {" "}
+                ${total}{" "}
+              </div>
             </div>
             <div className="checkout__right__cartSummery__item">
-              <div className="checkout__right__cartSummery__item__title"> shipping </div>
-              <div className="checkout__right__cartSummery__item__number"> ${shipping} </div>
+              <div className="checkout__right__cartSummery__item__title">
+                {" "}
+                shipping{" "}
+              </div>
+              <div className="checkout__right__cartSummery__item__number">
+                {" "}
+                ${shipping}{" "}
+              </div>
             </div>
             <hr />
             <div className="checkout__right__cartSummery__item">
-              <div className="checkout__right__cartSummery__item__title"> total </div>
-              <div className="checkout__right__cartSummery__item__number"> ${total + shipping} </div>
+              <div className="checkout__right__cartSummery__item__title">
+                {" "}
+                total{" "}
+              </div>
+              <div className="checkout__right__cartSummery__item__number">
+                {" "}
+                ${total + shipping}{" "}
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Checkout
+export default Checkout;

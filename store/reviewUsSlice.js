@@ -1,3 +1,4 @@
+import BaseUrl from "@/utils/db/BaseUrl";
 import { createAsyncThunk, createSlice, createAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -27,7 +28,7 @@ export const createGlobalReviewAction = createAsyncThunk(
       //http call
       // console.log("from redx " + formData);
       const { data } = await axios.post(
-        `${origin}/api/review/us`,
+        `${BaseUrl}/api/review/us`,
         revData,
         config
       );
@@ -47,7 +48,7 @@ export const fetchGlobalReviewsAction = createAsyncThunk(
   "reviewUs/list",
   async (_, { rejectWithValue, getState, dispatch }) => {
     try {
-      const { data } = await axios.get(`${origin}/api/review/us`);
+      const { data } = await axios.get(`${BaseUrl}/api/review/us`);
       return data;
     } catch (error) {
       if (!error?.response) throw error;
@@ -61,7 +62,7 @@ export const fetchProductDetailsAction = createAsyncThunk(
   async (id, { rejectWithValue, getState, dispatch }) => {
     try {
       console.log(id);
-      const { data } = await axios.get(`${origin}/api/reviewUs/${id}`);
+      const { data } = await axios.get(`${BaseUrl}/api/reviewUs/${id}`);
       return data;
     } catch (error) {
       if (!error?.response) throw error;

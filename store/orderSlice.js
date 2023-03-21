@@ -1,5 +1,6 @@
 // recive the data of stripe here
 
+import BaseUrl from "@/utils/db/BaseUrl";
 import { createAsyncThunk, createSlice, createAction } from "@reduxjs/toolkit";
 import axios from "axios";
 // import getStripe from "../utils/getStripe";
@@ -7,10 +8,6 @@ import axios from "axios";
 const hostname =
   typeof window !== "undefined" && window.location.hostname
     ? window.location.hostname
-    : "";
-const origin =
-  typeof window !== "undefined" && window.location.origin
-    ? window.location.origin
     : "";
 
 // Create stripe
@@ -31,7 +28,7 @@ export const stripeAction = createAsyncThunk(
 
       const userId = userAuth._id;
       const { data } = await axios.post(
-        `${origin}/api/stripe/`,
+        `${BaseUrl}/api/stripe`,
         {
           orderData,
           userId,
@@ -60,7 +57,7 @@ export const createOrderAction = createAsyncThunk(
         },
       };
       const { data } = await axios.post(
-        `${origin}/api/order`,
+        `${BaseUrl}/api/order`,
         orderData,
         config
       );
@@ -78,7 +75,7 @@ export const fetchOrdersAction = createAsyncThunk(
   async (id, { rejectWithValue, getState, dispatch }) => {
     try {
       console.log(id);
-      const { data } = await axios.get(`${origin}/api/order`);
+      const { data } = await axios.get(`${BaseUrl}/api/order`);
       return data;
     } catch (error) {
       if (!error?.response) throw error;
@@ -97,7 +94,7 @@ export const fetchOrderAction = createAsyncThunk(
           "Content-Type": "application/json",
         },
       };
-      const { data } = await axios.get(`${origin}/api/order/${id}`);
+      const { data } = await axios.get(`${BaseUrl}/api/order/${id}`);
       return data;
     } catch (error) {
       if (!error?.response) throw error;
@@ -122,7 +119,7 @@ export const updateOrderAction = createAsyncThunk(
       const newOrder = { ...currOrder[0], delivery_status: orderValues.status };
       console.log("newOrder", newOrder);
       const { data } = await axios.put(
-        `${origin}/api/order/${orderValues.id}`,
+        `${BaseUrl}/api/order/${orderValues.id}`,
         newOrder,
         config
       );
